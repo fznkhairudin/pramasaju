@@ -40,12 +40,36 @@
       </div>
     </nav>
 
-    <!-- HERO -->
-    <section id="home" class="hero">
-      <div class="hero-content">
-        <h1>PMR Madya SMPN 1 Jumapolo</h1>
-        <p>Peduli, Sigap, dan Siap Menolong.</p>
-      </div>
+    <!-- HERO SLIDER -->
+<section id="home" class="hero">
+
+  <div class="slider">
+
+    <!-- Slide 1 -->
+    <div class="slide active" style="background-image: url('img/bg1.jpeg');">
+    </div>
+
+    <!-- Slide 2 -->
+    <div class="slide" style="background-image: url('img/bg2.jpeg');">
+    </div>
+
+    <!-- Slide 3 -->
+    <div class="slide" style="background-image: url('img/bg3.jpeg');">
+    </div>
+
+    <!-- Slide 4 -->
+    <div class="slide" style="background-image: url('img/bg4.jpeg');">
+    </div>
+
+  </div>
+
+  <div class="hero-content">
+    <h1>PMR Madya SMPN 1 Jumapolo</h1>
+    <p>Peduli, Sigap, dan Siap Menolong.</p>
+      <!-- CTA -->
+    <a href="pendaftaran.html" class="cta-btn">Bergabung Sekarang</a>
+  </div>
+</section>
     </section>
 
     <!-- TENTANG -->
@@ -320,24 +344,33 @@
               </div>
 
               <!-- FORM KONTAK -->
-              <form class="contact-form" id="contactForm">
+              <form
+                class="contact-form"
+                id="contactForm"
+                name="kontak-pramasaju"
+              >
                 <h3>Kirim Pesan</h3>
-                <input type="text" id="name" placeholder="Nama Anda" required />
+                <input
+                  type="text"
+                  id="name"
+                  placeholder="Nama Anda"
+                  required
+                  name="nama"
+                />
                 <input
                   type="email"
                   id="email"
                   placeholder="Email Anda"
                   required
+                  name="email"
                 />
                 <textarea
                   id="message"
                   placeholder="Pesan Anda"
+                  name="pesan"
                   required
                 ></textarea>
                 <button type="submit" class="btn-primary">Kirim Pesan</button>
-                <p id="successMsg" class="success-msg">
-                  Pesan berhasil dikirim!
-                </p>
               </form>
             </div>
           </div>
@@ -371,12 +404,47 @@
         </footer>
 
         <script src="js/script.js"></script>
+
         <script>
           function toggleMenu() {
             const nav = document.getElementById("navMenu");
             nav.classList.toggle("show");
           }
         </script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script>
+          const scriptURL =
+            "https://script.google.com/macros/s/AKfycby3KwLeX_WEZNGGEdMNpWQLRfcgrsvJ1T_84BxVm_Szm1TEjfgMK2KjKcSKvD2Ga5KbTw/exec";
+          const form = document.forms["kontak-pramasaju"];
+
+          form.addEventListener("submit", (e) => {
+            e.preventDefault();
+            fetch(scriptURL, { method: "POST", body: new FormData(form) }).then(
+              (message) => alert
+            );
+            Swal.fire({
+              title: "Terima Kasih!",
+              text: "Pesan anda telah kami terima!",
+              icon: "success",
+            });
+            form.reset();
+            return false;
+          });
+        </script>
+        <script>
+let currentSlide = 0;
+const slides = document.querySelectorAll(".slide");
+
+function changeSlide() {
+  slides[currentSlide].classList.remove("active");
+
+  currentSlide = (currentSlide + 1) % slides.length;
+
+  slides[currentSlide].classList.add("active");
+}
+
+setInterval(changeSlide, 5000); // 5 detik per slide
+</script>
       </body>
     </html>
   </body>
